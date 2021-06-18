@@ -3,17 +3,17 @@ import Head from "next/head";
 
 import MainLayout from "../layouts/mainLayout";
 
-import Clock from "../components/clock";
 import Header from "../components/header";
+import Stopwatch from "../components/stopwatch";
 
-const ClockPage = () => (
+const StopwatchPage = () => (
   <MainLayout>
     <Head>
-      <title>Clock</title>
+      <title>Stopwatch</title>
     </Head>
-    <Header>Clock</Header>
-    <Clock></Clock>
+    <Header>Stopwatch</Header>
+    <Stopwatch></Stopwatch>
   </MainLayout>
 );
 
-export default ClockPage;
+export default StopwatchPage;

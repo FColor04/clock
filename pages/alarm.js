@@ -3,17 +3,16 @@ import Head from "next/head";
 
 import MainLayout from "../layouts/mainLayout";
 
-import Clock from "../components/clock";
 import Header from "../components/header";
 
-const ClockPage = () => (
+const AlarmPage = () => (
   <MainLayout>
     <Head>
-      <title>Clock</title>
+      <title>Alarm</title>
     </Head>
-    <Header>Clock</Header>
-    <Clock></Clock>
+    <Header>Alarms</Header>
+    <div></div>
   </MainLayout>
 );
 
-export default ClockPage;
+export default AlarmPage;
