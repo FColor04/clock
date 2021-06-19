@@ -1,3 +1,3 @@
 describe("timer", () => {
-  it("begins with timer set at 5 minutes");
+  it.todo("begins with timer set at 5 minutes");
 });
