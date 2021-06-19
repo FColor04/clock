@@ -4,6 +4,7 @@ import Head from "next/head";
 import MainLayout from "../layouts/mainLayout";
 
 import Header from "../components/header";
+import Timer from "../components/timer";
 
 const TimerPage = () => (
   <MainLayout>
@@ -11,7 +12,7 @@ const TimerPage = () => (
       <title>Timer</title>
     </Head>
     <Header>Timer</Header>
-    <div></div>
+    <Timer></Timer>
   </MainLayout>
 );
 
