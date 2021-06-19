@@ -8,8 +8,13 @@ const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 8rem auto 8rem;
-  height: 100vh;
-  width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const MainLayout = ({ children }) => (

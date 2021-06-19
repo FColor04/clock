@@ -15,6 +15,8 @@ const sharedProperties = {
 export const lightTheme = {
   iconPath: "/sun.svg",
   backgroundColor: "#eee",
+  dimBackgroundColor: "#ccc",
+  dimmerBackgroundColor: "#aaa",
   primaryColor: "#222222",
   secondaryColor: "#aaa",
   navigationColor: "#e2e2e2",
@@ -29,6 +31,8 @@ export const lightTheme = {
 export const darkTheme = {
   iconPath: "/moon.svg",
   backgroundColor: "#333",
+  dimBackgroundColor: "#222",
+  dimmerBackgroundColor: "#111",
   primaryColor: "#fff",
   secondaryColor: "#444",
   navigationColor: "#222",
@@ -43,6 +47,8 @@ export const darkTheme = {
 export const pearTheme = {
   iconPath: "/pear.svg",
   backgroundColor: "#325621",
+  dimBackgroundColor: "#224611",
+  dimmerBackgroundColor: "#123601",
   primaryColor: "#fff",
   secondaryColor: "#ede333",
   navigationColor: "#222",
