@@ -6,7 +6,7 @@ import GlobalStyles from '../utils/globalStyles';
 import store from '../utils/store';
 
 const ThemeProviderWithStore = ({ children }:{ children:React.ReactNode }) => {
-  const theme = useSelector((state: any) => state.themeSlice.theme) || {};
+  const theme = useSelector((state: any) => state.themeSlice) || {};
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 

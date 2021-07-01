@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '../utils/store';
 import { Themes } from '../utils/themes';
 
-const StyledWrapper = styled.div<{ ref: any }>`
+const StyledWrapper = styled.div<{ theme: any, ref: any }>`
   position: fixed;
   bottom: 1rem;
   @media screen and (max-width: 600px) {
@@ -53,7 +53,7 @@ const Theme = styled.button<{ theme: any, path: string, fixed?: boolean, tabinde
 const ThemeToggle = () => {
   const dispatch = useDispatch();
   const Wrapper = useRef<HTMLButtonElement>(null);
-  const currentTheme = useSelector((state: any) => state.themeSlice.theme) || {};
+  const currentTheme = useSelector((state: any) => state.themeSlice) || {};
 
   return (
     <>

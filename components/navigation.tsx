@@ -38,17 +38,23 @@ type CustomLinkProps = {
 // Used inside Custom Link only
 
 const StyledLink = styled.a<{ theme: any, active: boolean }>`
+  position: relative;
   color: ${({ theme, active }) => (active ? theme.activeLocationTextColor : theme.primaryColor)};
   ${({ theme, active }) => active
   && `
   background-color: ${theme.activeLocationColor};
   box-shadow: 0 0 0.7rem -0.2rem ${theme.activeLocationColor};
   `}
-  width: 10ch;
+  width: 12ch;
   text-align: center;
   padding: 0.5rem;
   border-radius: 100vw;
   text-decoration: none;
+  transition: transform 0.1s;
+  &:hover {
+    transform: translateY(-0.4rem);
+    text-decoration: underline;
+  }
 `;
 
 const Icon = styled(FontAwesomeIcon)`

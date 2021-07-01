@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'framer-motion';
 import TimeDisplay from './timeDisplay/timeDisplay';
+import Button from './button';
 
 const StopwatchWrapper = styled.div`
   display: grid;
@@ -26,16 +27,6 @@ const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-`;
-
-const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100vw;
-  width: 4rem;
-  height: 4rem;
-  background-color: ${({ theme }) => theme.navigationColor};
 `;
 
 const StyledLapList = styled.ol<{ theme: any, scale: number, ref?: any }>`
@@ -190,21 +181,13 @@ const stopwatch = () => {
       <ButtonsWrapper>
         {measuring === true ? (
           <>
-            <Icon onClick={() => window.dispatchEvent(new Event('pause-sw'))}>
-              <FontAwesomeIcon icon={faPause} />
-            </Icon>
-            <Icon onClick={() => window.dispatchEvent(new Event('lap-sw'))}>
-              <FontAwesomeIcon icon={faFlag} />
-            </Icon>
+            <Button onClick={() => window.dispatchEvent(new Event('pause-sw'))} icon={faPause} square size={4} />
+            <Button onClick={() => window.dispatchEvent(new Event('lap-sw'))} icon={faFlag} square size={4} />
           </>
         ) : (
           <>
-            <Icon onClick={() => window.dispatchEvent(new Event('resume-sw'))}>
-              <FontAwesomeIcon icon={faPlay} />
-            </Icon>
-            <Icon onClick={() => window.dispatchEvent(new Event('reset-sw'))}>
-              <FontAwesomeIcon icon={faHistory} />
-            </Icon>
+            <Button onClick={() => window.dispatchEvent(new Event('resume-sw'))} icon={faPlay} square size={4} />
+            <Button onClick={() => window.dispatchEvent(new Event('reset-sw'))} icon={faHistory} square size={4} />
           </>
         )}
       </ButtonsWrapper>
