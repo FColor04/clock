@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledHeader = styled.h1`
+type Props = {
+  children: React.ReactNode,
+  size?: number
+};
+
+const StyledHeader = styled.h1<{size: number}>`
   font-size: ${({ size }) => size + "rem"};
   width: 100%;
   height: 100%;
@@ -12,7 +17,7 @@ const StyledHeader = styled.h1`
   justify-content: center;
 `;
 
-const Header = ({ children, size = 4 }) => (
+const Header = ({ children, size = 4 } : Props) => (
   <StyledHeader size={size}>{children}</StyledHeader>
 );
 

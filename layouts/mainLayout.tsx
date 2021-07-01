@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
   bottom: 0;
 `;
 
-const MainLayout = ({ children }) => (
+const MainLayout = ({ children }:{ children:React.ReactNode }) => (
   <StyledWrapper>
     {children}
     <Navigation />

@@ -29,11 +29,17 @@ const Nav = styled.nav`
   ${({ theme }) => theme.outset};
 `;
 
-const CustomLink = ({ children, icon, href }) => {
+type CustomLinkProps = {
+  children: React.ReactNode,
+  icon: any,
+  href: string,
+  tabindex?: number
+};
+const CustomLink = ({ children, icon, href } : CustomLinkProps) => {
   const router = useRouter();
 
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <StyledLink active={router.asPath === href}>
         {children}
         <Icon icon={icon} />
@@ -44,7 +50,7 @@ const CustomLink = ({ children, icon, href }) => {
 
 //Used inside Custom Link only
 
-const StyledLink = styled.span`
+const StyledLink = styled.a<{theme: any, active: boolean}>`
   color: ${({ theme, active }) =>
     active ? theme.activeLocationTextColor : theme.primaryColor};
   ${({ theme, active }) =>
@@ -57,6 +63,7 @@ const StyledLink = styled.span`
   text-align: center;
   padding: 0.5rem;
   border-radius: 100vw;
+  text-decoration: none;
 `;
 
 const Icon = styled(FontAwesomeIcon)`
@@ -71,7 +78,7 @@ const Icon = styled(FontAwesomeIcon)`
 
 const Navigation = () => (
   <Nav>
-    <CustomLink href="/" icon={faClock}>
+    <CustomLink href="/" icon={faClock} tabindex={1}>
       Clock
     </CustomLink>
     {/* <CustomLink href="/alarm" icon={faBell}>

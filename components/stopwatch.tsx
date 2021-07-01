@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "framer-motion";
+import TimeDisplay from "./timeDisplay/timeDisplay";
 
 const StopwatchWrapper = styled.div`
   display: grid;
@@ -24,14 +25,6 @@ const ButtonsWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const TimeDisplay = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Courier Prime", monospace;
-  font-size: 6rem;
-`;
-
 const Icon = styled.div`
   display: flex;
   align-items: center;
@@ -42,7 +35,7 @@ const Icon = styled.div`
   background-color: ${({ theme }) => theme.navigationColor};
 `;
 
-const StyledLapList = styled.ol`
+const StyledLapList = styled.ol<{theme: any, scale: number}>`
   width: 37rem;
   @media screen and (max-width: 400px), screen and (max-height: 400px) {
     width: 95vw;
@@ -100,12 +93,12 @@ const StyledLapList = styled.ol`
   }
 `;
 
-const LapList = (props) => {
-  const LapListRef = useRef();
+const LapList = (props : any) => {
+  const LapListRef = useRef<HTMLElement>(null);
   const [lastChildCount, setLastChildCount] = useState(0);
   useEffect(() => {
     if (lastChildCount < Children.count(props.children)) {
-      const ref = LapListRef.current;
+      const ref: HTMLElement = LapListRef.current as any;
       ref.scrollTop = ref.scrollHeight;
     }
     setLastChildCount(Children.count(props.children));
@@ -118,12 +111,19 @@ const LapList = (props) => {
 };
 
 const stopwatch = () => {
+  interface TimeObjectInterface {
+    hours?: number,
+    minutes: number,
+    seconds: number,
+    milliSeconds?: number
+  }
   const [time, setTime] = useState(0);
-  const [formattedTime, setFormattedTime] = useState("00:00.00"); //hh:mm:ss.ms
+  const [timeObj, setTimeObj] = useState<TimeObjectInterface>();
   const [measuring, setMeasuring] = useState(false);
-  const [laps, setLaps] = useState([]);
-  let interval;
-  let stopwatch = 0; //For some reason didn't work when time hook was used in place of this
+  const [laps, setLaps] = useState<TimeObjectInterface[]>([]);
+  let interval: any;
+  let stopwatch: number = 0; //For some reason didn't work when time state was used in place of this
+
   //Reset stopwatch
   useEffect(() => {
     const reset = () => {
@@ -141,7 +141,7 @@ const stopwatch = () => {
     const update = () => {
       interval = setInterval(() => {
         stopwatch = stopwatch + 13;
-        setTime(stopwatch);
+        setTime(stopwatch); //setTime(time + 13); does not work
       }, 13);
       setMeasuring(true);
     };
@@ -164,38 +164,26 @@ const stopwatch = () => {
   //Lap time
   useEffect(() => {
     const lapTime = () => {
-      setLaps([...laps, formattedTime]);
+      setLaps([...laps, timeObj] as TimeObjectInterface[]);
     };
     window.addEventListener("lap-sw", lapTime);
     return () => window.removeEventListener("lap-sw", lapTime);
-  }, [laps, setLaps, formattedTime]);
+  }, [laps, setLaps, timeObj]);
 
-  //Render Time
   useEffect(() => {
-    let timeDiff = new Date(time);
+    const timeDiff = new Date(time);
     timeDiff.setUTCHours(-1);
-    let h = timeDiff.getHours();
-    let m = timeDiff.getMinutes();
-    let s = timeDiff.getSeconds();
-    let ms = timeDiff.getMilliseconds();
-
-    const t = [h, m, s, ms];
-
-    //Format Time, works because const means constant reference in this case
-    t.forEach((number, index) => {
-      if (index === 3) {
-        t[3] = ("00" + number.toString()).slice(-3);
-      } else {
-        t[index] = ("0" + number.toString()).slice(-2);
-      }
+    setTimeObj({
+      hours: timeDiff.getHours(),
+      minutes: timeDiff.getMinutes(),
+      seconds: timeDiff.getSeconds(),
+      milliSeconds: timeDiff.getMilliseconds(),
     });
-    if (t[0] > 0) setFormattedTime(`${t[0]}:${t[1]}:${t[2]}.${t[3]}`);
-    else setFormattedTime(`${t[1]}:${t[2]}.${t[3]}`);
   }, [time]);
 
   return (
     <StopwatchWrapper>
-      <TimeDisplay>{formattedTime}</TimeDisplay>
+      <TimeDisplay {...(timeObj as TimeObjectInterface)} size={4.5} />
       <ButtonsWrapper>
         {measuring === true ? (
           <>
@@ -226,7 +214,7 @@ const stopwatch = () => {
           >
             {index + 1}
             {". "}
-            {lapTime}
+            <TimeDisplay {...lapTime} size={2.8} />
             <span
               onClick={() => {
                 let filteredLaps = laps.filter(

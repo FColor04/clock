@@ -1,10 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle<{theme: any}>`
 	*, *::before, *::after {
 		box-sizing: border-box;
-		--highlight: ${({ theme }) => theme.highlightColor};
-		--shadow: ${({ theme }) => theme.shadowColor};
 	}
 	:root {
 		font-size: 16px;

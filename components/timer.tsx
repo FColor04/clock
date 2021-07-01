@@ -1,7 +1,9 @@
+import Modal from "./modal";
+
 const Timer = () => {
   return (
     <div>
-      Timer <span>T</span>
+      <Modal />; Timer <span>T</span>
     </div>
   );
 };
