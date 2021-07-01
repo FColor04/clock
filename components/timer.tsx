@@ -1,11 +1,12 @@
-import Modal from "./modal";
+import React from 'react';
+import Modal from './modal';
 
-const Timer = () => {
-  return (
-    <div>
-      <Modal />; Timer <span>T</span>
-    </div>
-  );
-};
+const Timer = () => (
+  <div>
+    <Modal />
+    ; Timer
+    <span>T</span>
+  </div>
+);
 
 export default Timer;

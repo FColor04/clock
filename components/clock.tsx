@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useContext } from 'react';
+import styled from 'styled-components';
 
-import TimeProvider, { TimeContext, TimeInterface } from "./timeDisplay/timeProvider";
+import TimeProvider, { TimeContext, TimeInterface } from './timeDisplay/timeProvider';
 
-import TimeDisplay from "./timeDisplay/timeDisplay";
-import Dial from "./dial";
+import TimeDisplay from './timeDisplay/timeDisplay';
+import Dial from './dial';
 
 const StyledClockFrame = styled.div`
   display: flex;
@@ -27,28 +28,27 @@ const StyledClock = styled.div`
   position: relative;
   margin: 2rem auto;
 `;
-const StyledPip = styled.div<{theme: any, rotation: number}>`
+const StyledPip = styled.div<{ theme: any, rotation: number }>`
   position: absolute;
   left: 50%;
   top: 50%;
   height: 100%;
   transform: translate(-50%, -50%)
-    rotateZ(${({ rotation }) => rotation + "deg"});
+    rotateZ(${({ rotation }) => `${rotation}deg`});
   &::after {
     content: "";
     position: absolute;
     top: 1rem;
-    height: ${({ rotation }) => (rotation % 90 == 0 ? "2rem" : "1rem")};
+    height: ${({ rotation }) => (rotation % 90 === 0 ? '2rem' : '1rem')};
     width: 4px;
     border-radius: 100vw;
-    background-color: ${({ rotation, theme }) =>
-      rotation % 30 == 0 ? theme.primaryColor : theme.secondaryColor};
+    background-color: ${({ rotation, theme }) => (rotation % 30 === 0 ? theme.primaryColor : theme.secondaryColor)};
     transform: translateX(-50%);
   }
 `;
 
-let pips: number[] = [];
-for (let i = 0; i < 60; i++) {
+const pips: number[] = [];
+for (let i = 0; i < 60; i += 1) {
   pips[i] = i;
 }
 
@@ -62,7 +62,7 @@ const Clock = () => (
     <TimeProvider>
       <StyledClock>
         {pips.map((pip) => (
-          <StyledPip key={"pip-" + pip} rotation={pip * 6} />
+          <StyledPip key={`pip-${pip}`} rotation={pip * 6} />
         ))}
         <Dial type="hour" />
         <Dial type="minute" />

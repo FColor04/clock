@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { ThemeProvider } from "styled-components";
-import GlobalStyles from "../utils/globalStyles";
-import store from "../utils/store";
-import { Provider } from "react-redux";
-import { useSelector } from "react-redux";
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { useSelector, Provider } from 'react-redux';
+import GlobalStyles from '../utils/globalStyles';
+import store from '../utils/store';
 
 const ThemeProviderWithStore = ({ children }:{ children:React.ReactNode }) => {
-  let theme = useSelector((state: any) => state.themeSlice.theme) || {};
+  const theme = useSelector((state: any) => state.themeSlice.theme) || {};
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 

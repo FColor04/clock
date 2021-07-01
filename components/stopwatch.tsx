@@ -1,15 +1,18 @@
-import React, { useEffect, useState, useRef, Children } from "react";
-import styled from "styled-components";
+/* eslint-disable react/jsx-props-no-spreading */
+import React, {
+  useEffect, useState, useRef, Children,
+} from 'react';
+import styled from 'styled-components';
 import {
   faPlay,
   faFlag,
   faPause,
   faHistory,
   faMinus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion, AnimatePresence } from "framer-motion";
-import TimeDisplay from "./timeDisplay/timeDisplay";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from 'framer-motion';
+import TimeDisplay from './timeDisplay/timeDisplay';
 
 const StopwatchWrapper = styled.div`
   display: grid;
@@ -35,7 +38,7 @@ const Icon = styled.div`
   background-color: ${({ theme }) => theme.navigationColor};
 `;
 
-const StyledLapList = styled.ol<{theme: any, scale: number}>`
+const StyledLapList = styled.ol<{ theme: any, scale: number, ref?: any }>`
   width: 37rem;
   @media screen and (max-width: 400px), screen and (max-height: 400px) {
     width: 95vw;
@@ -48,7 +51,7 @@ const StyledLapList = styled.ol<{theme: any, scale: number}>`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  transform: scale(${({ scale }) => (scale ?? 100) + "%"});
+  transform: scale(${({ scale }) => `${scale ?? 100}%`});
   transition: transform 0.4s;
   & > li {
     width: 100%;
@@ -93,19 +96,19 @@ const StyledLapList = styled.ol<{theme: any, scale: number}>`
   }
 `;
 
-const LapList = (props : any) => {
+const LapList = ({ scale, children } : { scale: number, children: React.ReactNode }) => {
   const LapListRef = useRef<HTMLElement>(null);
   const [lastChildCount, setLastChildCount] = useState(0);
   useEffect(() => {
-    if (lastChildCount < Children.count(props.children)) {
+    if (lastChildCount < Children.count(children)) {
       const ref: HTMLElement = LapListRef.current as any;
       ref.scrollTop = ref.scrollHeight;
     }
-    setLastChildCount(Children.count(props.children));
-  }, [props.children]);
+    setLastChildCount(Children.count(children));
+  }, [children]);
   return (
-    <StyledLapList ref={LapListRef} {...props}>
-      {props.children}
+    <StyledLapList ref={LapListRef} scale={scale}>
+      {children}
     </StyledLapList>
   );
 };
@@ -122,52 +125,52 @@ const stopwatch = () => {
   const [measuring, setMeasuring] = useState(false);
   const [laps, setLaps] = useState<TimeObjectInterface[]>([]);
   let interval: any;
-  let stopwatch: number = 0; //For some reason didn't work when time state was used in place of this
+  let counter: number = 0;// For some reason didn't work when time state was used in place of this
 
-  //Reset stopwatch
+  // Reset stopwatch
   useEffect(() => {
     const reset = () => {
-      stopwatch = 0;
+      counter = 0;
       setTime(0);
     };
-    window.addEventListener("reset-sw", reset);
+    window.addEventListener('reset-sw', reset);
     return () => {
-      window.removeEventListener("reset-sw", reset);
+      window.removeEventListener('reset-sw', reset);
     };
   }, []);
 
-  //Resume stopwatch
+  // Resume stopwatch
   useEffect(() => {
     const update = () => {
       interval = setInterval(() => {
-        stopwatch = stopwatch + 13;
-        setTime(stopwatch); //setTime(time + 13); does not work
+        counter += 13;
+        setTime(counter); // setTime(time + 13); does not work
       }, 13);
       setMeasuring(true);
     };
-    window.addEventListener("resume-sw", update);
+    window.addEventListener('resume-sw', update);
     return () => {
-      window.removeEventListener("resume-sw", update);
+      window.removeEventListener('resume-sw', update);
       clearInterval(interval);
     };
   }, []);
 
-  //Pause stopwatch
+  // Pause stopwatch
   useEffect(() => {
     const pause = () => {
       clearInterval(interval);
       setMeasuring(false);
     };
-    window.addEventListener("pause-sw", pause);
-    return () => window.removeEventListener("pause-sw", pause);
+    window.addEventListener('pause-sw', pause);
+    return () => window.removeEventListener('pause-sw', pause);
   }, []);
-  //Lap time
+  // Lap time
   useEffect(() => {
     const lapTime = () => {
       setLaps([...laps, timeObj] as TimeObjectInterface[]);
     };
-    window.addEventListener("lap-sw", lapTime);
-    return () => window.removeEventListener("lap-sw", lapTime);
+    window.addEventListener('lap-sw', lapTime);
+    return () => window.removeEventListener('lap-sw', lapTime);
   }, [laps, setLaps, timeObj]);
 
   useEffect(() => {
@@ -187,41 +190,43 @@ const stopwatch = () => {
       <ButtonsWrapper>
         {measuring === true ? (
           <>
-            <Icon onClick={() => window.dispatchEvent(new Event("pause-sw"))}>
+            <Icon onClick={() => window.dispatchEvent(new Event('pause-sw'))}>
               <FontAwesomeIcon icon={faPause} />
             </Icon>
-            <Icon onClick={() => window.dispatchEvent(new Event("lap-sw"))}>
+            <Icon onClick={() => window.dispatchEvent(new Event('lap-sw'))}>
               <FontAwesomeIcon icon={faFlag} />
             </Icon>
           </>
         ) : (
           <>
-            <Icon onClick={() => window.dispatchEvent(new Event("resume-sw"))}>
+            <Icon onClick={() => window.dispatchEvent(new Event('resume-sw'))}>
               <FontAwesomeIcon icon={faPlay} />
             </Icon>
-            <Icon onClick={() => window.dispatchEvent(new Event("reset-sw"))}>
+            <Icon onClick={() => window.dispatchEvent(new Event('reset-sw'))}>
               <FontAwesomeIcon icon={faHistory} />
             </Icon>
           </>
         )}
       </ButtonsWrapper>
-      <LapList scale={laps.length != 0 ? 100 : 0}>
+      <LapList scale={laps.length !== 0 ? 100 : 0}>
         {laps.map((lapTime, index) => (
           <motion.li
-            initial={{ scaleX: "0%" }}
-            animate={{ scaleX: "100%" }}
-            key={"lap-" + index}
+            initial={{ scaleX: '0%' }}
+            animate={{ scaleX: '100%' }}
+            // eslint-disable-next-line react/no-array-index-key
+            key={`lap-${index}`}
           >
             {index + 1}
-            {". "}
+            {'. '}
             <TimeDisplay {...lapTime} size={2.8} />
             <span
               onClick={() => {
-                let filteredLaps = laps.filter(
-                  (element, fIndex) => fIndex !== index
+                const filteredLaps = laps.filter(
+                  (element, fIndex) => fIndex !== index,
                 );
                 setLaps(filteredLaps);
               }}
+              aria-hidden="true"
             >
               <FontAwesomeIcon icon={faMinus} />
             </span>

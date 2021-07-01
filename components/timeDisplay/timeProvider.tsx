@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 export const TimeContext = React.createContext({});
 
@@ -9,7 +9,7 @@ export interface TimeInterface {
 }
 
 const TimeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [Time, setTime] = useState<TimeInterface>({hours: 0, minutes: 0, seconds: 0});
+  const [Time, setTime] = useState<TimeInterface>({ hours: 0, minutes: 0, seconds: 0 });
 
   const updateTime = () => {
     const date = new Date();

@@ -1,14 +1,13 @@
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import styled from "styled-components";
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import {
   faClock,
-  faBell,
   faHourglass,
-} from "@fortawesome/free-regular-svg-icons";
-import { faHistory } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-regular-svg-icons';
+import { faHistory } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Nav = styled.nav`
   display: flex;
@@ -35,30 +34,16 @@ type CustomLinkProps = {
   href: string,
   tabindex?: number
 };
-const CustomLink = ({ children, icon, href } : CustomLinkProps) => {
-  const router = useRouter();
 
-  return (
-    <Link href={href} passHref>
-      <StyledLink active={router.asPath === href}>
-        {children}
-        <Icon icon={icon} />
-      </StyledLink>
-    </Link>
-  );
-};
+// Used inside Custom Link only
 
-//Used inside Custom Link only
-
-const StyledLink = styled.a<{theme: any, active: boolean}>`
-  color: ${({ theme, active }) =>
-    active ? theme.activeLocationTextColor : theme.primaryColor};
-  ${({ theme, active }) =>
-    active &&
-    `
-		background-color: ${theme.activeLocationColor};
-		box-shadow: 0 0 0.7rem -0.2rem ${theme.activeLocationColor};
-	`}
+const StyledLink = styled.a<{ theme: any, active: boolean }>`
+  color: ${({ theme, active }) => (active ? theme.activeLocationTextColor : theme.primaryColor)};
+  ${({ theme, active }) => active
+  && `
+  background-color: ${theme.activeLocationColor};
+  box-shadow: 0 0 0.7rem -0.2rem ${theme.activeLocationColor};
+  `}
   width: 10ch;
   text-align: center;
   padding: 0.5rem;
@@ -76,14 +61,24 @@ const Icon = styled(FontAwesomeIcon)`
 
 //
 
+const CustomLink = ({ children, icon, href } : CustomLinkProps) => {
+  const router = useRouter();
+
+  return (
+    <Link href={href} passHref>
+      <StyledLink active={router.asPath === href}>
+        {children}
+        <Icon icon={icon} />
+      </StyledLink>
+    </Link>
+  );
+};
+
 const Navigation = () => (
   <Nav>
-    <CustomLink href="/" icon={faClock} tabindex={1}>
+    <CustomLink href="/" icon={faClock}>
       Clock
     </CustomLink>
-    {/* <CustomLink href="/alarm" icon={faBell}>
-      Alarm
-    </CustomLink> */}
     <CustomLink href="/stopwatch" icon={faHistory}>
       Stopwatch
     </CustomLink>

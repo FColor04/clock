@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Navigation from "../components/navigation";
-import ThemeToggle from "../components/themeToggle";
+import Navigation from '../components/navigation';
+import ThemeToggle from '../components/themeToggle';
 
 const StyledWrapper = styled.div`
   display: grid;

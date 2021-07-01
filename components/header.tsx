@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 type Props = {
   children: React.ReactNode,
   size?: number
 };
 
-const StyledHeader = styled.h1<{size: number}>`
-  font-size: ${({ size }) => size + "rem"};
+const StyledHeader = styled.h1<{ size: number }>`
+  font-size: ${({ size }) => `${size}rem`};
   width: 100%;
   height: 100%;
   margin: 0;

@@ -1,9 +1,9 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
-import MainLayout from "../layouts/mainLayout";
+import MainLayout from '../layouts/mainLayout';
 
-import Header from "../components/header";
+import Header from '../components/header';
 
 const AlarmPage = () => (
   <MainLayout>
@@ -11,7 +11,7 @@ const AlarmPage = () => (
       <title>Alarm</title>
     </Head>
     <Header>Alarms</Header>
-    <div></div>
+    <div />
   </MainLayout>
 );
 

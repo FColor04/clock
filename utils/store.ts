@@ -7,13 +7,15 @@ export const themeSlice = createSlice({
     theme: Themes[0],
   },
   reducers: {
-    setTheme: (state, action: PayloadAction<number>) => {
-      state.theme = Themes[action.payload];
+    setTheme: ({ theme }, action: PayloadAction<number>) => {
+      // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-unused-vars
+      theme = Themes[action.payload];
     }
   },
 });
-export const { setTheme } = themeSlice.actions;
-export const reducer = themeSlice.reducer;
+
+export const { actions: {setTheme} } = themeSlice;
+export const { reducer } = themeSlice;
 
 export default configureStore({
   reducer: {

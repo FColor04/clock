@@ -1,10 +1,10 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
-import MainLayout from "../layouts/mainLayout";
+import MainLayout from '../layouts/mainLayout';
 
-import Header from "../components/header";
-import Stopwatch from "../components/stopwatch";
+import Header from '../components/header';
+import Stopwatch from '../components/stopwatch';
 
 const StopwatchPage = () => (
   <MainLayout>
@@ -12,7 +12,7 @@ const StopwatchPage = () => (
       <title>Stopwatch</title>
     </Head>
     <Header>Stopwatch</Header>
-    <Stopwatch></Stopwatch>
+    <Stopwatch />
   </MainLayout>
 );
 

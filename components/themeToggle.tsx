@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { setTheme } from "../utils/store";
-import { Themes } from "../utils/themes";
+import React, { useRef } from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTheme } from '../utils/store';
+import { Themes } from '../utils/themes';
 
-const StyledWrapper = styled.div<{ref: any}>`
+const StyledWrapper = styled.div<{ ref: any }>`
   position: fixed;
   bottom: 1rem;
   @media screen and (max-width: 600px) {
@@ -27,7 +27,7 @@ const StyledWrapper = styled.div<{ref: any}>`
   }
 `;
 
-const Theme = styled.button<{theme: any, path: string, fixed?: boolean, tabindex?: number}>`
+const Theme = styled.button<{ theme: any, path: string, fixed?: boolean, tabindex?: number }>`
   width: 3rem;
   height: 3rem;
   border-radius: 100vw;
@@ -37,9 +37,8 @@ const Theme = styled.button<{theme: any, path: string, fixed?: boolean, tabindex
   background-size: contain;
   border: 2px solid grey;
   transform: scale(100%);
-  ${({ fixed }) =>
-    fixed &&
-    `
+  ${({ fixed }) => fixed
+    && `
     position: fixed;
     bottom: 0.2rem;
     @media screen and (max-width: 600px) {
@@ -54,7 +53,7 @@ const Theme = styled.button<{theme: any, path: string, fixed?: boolean, tabindex
 const ThemeToggle = () => {
   const dispatch = useDispatch();
   const Wrapper = useRef<HTMLButtonElement>(null);
-  let currentTheme = useSelector((state: any) => state.themeSlice.theme) || {};
+  const currentTheme = useSelector((state: any) => state.themeSlice.theme) || {};
 
   return (
     <>
@@ -64,7 +63,7 @@ const ThemeToggle = () => {
         }}
         fixed
         path={currentTheme.iconPath}
-      ></Theme>
+      />
       <StyledWrapper ref={Wrapper}>
         {Themes.map((theme, index) => (
           <Theme

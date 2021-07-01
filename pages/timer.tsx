@@ -1,10 +1,10 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
-import MainLayout from "../layouts/mainLayout";
+import MainLayout from '../layouts/mainLayout';
 
-import Header from "../components/header";
-import Timer from "../components/timer";
+import Header from '../components/header';
+import Timer from '../components/timer';
 
 const TimerPage = () => (
   <MainLayout>
@@ -12,7 +12,7 @@ const TimerPage = () => (
       <title>Timer</title>
     </Head>
     <Header>Timer</Header>
-    <Timer></Timer>
+    <Timer />
   </MainLayout>
 );
 
