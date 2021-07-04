@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import {
   faPlay,
@@ -24,16 +24,29 @@ const Row = styled.div`
   }
 `;
 
+const TimeInput = styled.input`
+  padding: 0 4ch;
+  font-size: 2rem;
+  border-radius: 100vw;
+  border: 1px solid black;
+  margin: 1rem;
+`;
+
 const Timer = () => {
   const [modalToggled, setModalToggle] = useState(false);
   const [timerStatus, setTimerStatus] = useState(false);
+  const timeInputRef = useRef(null);
   return (
     <CenterWrapper>
       {modalToggled && (
       <Modal callback={() => setModalToggle(false)}>
         <h2>Set Timer</h2>
-        <br />
-        00:00:00
+        <form>
+          Work in progress.
+          {/* TODO: Add functionality to the timer */}
+          <TimeInput type="time" ref={timeInputRef} step="1" />
+          <TimeInput type="submit" value="Set" />
+        </form>
       </Modal>
       )}
       <TimeDisplay minutes={0} seconds={0} size={5} />

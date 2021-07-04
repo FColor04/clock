@@ -1,0 +1,9 @@
+{
+  "name": "Clock",
+  "short_name": "clock",
+  "theme_color": "#acacac",
+  "background_color": "#cccccc",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
