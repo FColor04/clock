@@ -15,3 +15,4 @@ this repo shows that very basic projects can have much bigger backend.
 - Redux
 - Styled Components
 - Jest
+- Framer Motion
